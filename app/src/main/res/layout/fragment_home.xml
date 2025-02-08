@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal">
 
     <!-- ProgressBar to indicate loading state -->
     <ProgressBar
@@ -11,13 +14,24 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
 
-    <!-- TextView that will display fetched data in red -->
+    <!-- Title TextView (Red color) -->
     <TextView
-        android:id="@+id/redTextView"
+        android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/holo_red_dark"
-        android:textSize="18sp"
-        android:layout_gravity="center"
-        android:visibility="gone" />
-</FrameLayout>
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:visibility="gone"
+        android:layout_marginTop="16dp" />
+
+    <!-- Body TextView (Black color, below title) -->
+    <TextView
+        android:id="@+id/bodyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:visibility="gone"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>

@@ -57,8 +57,11 @@ class ProductPageFragment : Fragment() {
                 if (response.isSuccessful) {
                     response.body()?.let { fetchedProducts ->
                         if (fetchedProducts.isNotEmpty()) {
-                            // Add only the first product to display just one product
-                            products.add(fetchedProducts[0])
+                            // Clear the list to avoid duplicate items on refresh
+                            products.clear()
+                            // Add all fetched products
+                            products.addAll(fetchedProducts)
+                            // Notify adapter of data change
                             productAdapter.notifyDataSetChanged()
                         } else {
                             Toast.makeText(context, "No products available", Toast.LENGTH_SHORT).show()
@@ -75,4 +78,5 @@ class ProductPageFragment : Fragment() {
             }
         })
     }
+
 }

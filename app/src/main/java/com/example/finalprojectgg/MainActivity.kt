@@ -1,18 +1,6 @@
 package com.example.finalprojectgg
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.finalprojectgg.ui.theme.FinalProjectGGTheme
-
 import androidx.appcompat.app.AppCompatActivity
 import com.example.finalprojectgg.ui.fragments.HomeFragment
 import com.example.finalprojectgg.ui.fragments.ViewPagerFragment
@@ -22,27 +10,36 @@ class MainActivityXml : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Set the activity's layout defined in XML
         setContentView(R.layout.activity_main)
 
-        // Set up the BottomNavigationView to switch between fragments
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+
+        // ✅ Load HomeFragment when app starts
+        if (savedInstanceState == null) {  // Ensure it's only loaded once
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, HomeFragment())
+                .commit()
+        }
+
+        // Handle Bottom Navigation Clicks
         bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, HomeFragment())
-                        .commit()
+                    loadFragment(HomeFragment())
                     true
                 }
                 R.id.nav_viewpager -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, ViewPagerFragment())
-                        .commit()
+                    loadFragment(ViewPagerFragment())
                     true
                 }
                 else -> false
             }
         }
+    }
+
+    private fun loadFragment(fragment: androidx.fragment.app.Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
     }
 }
